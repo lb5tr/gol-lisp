@@ -15,5 +15,3 @@
   :components ((:file "functions")))
 
 (asdf:operate 'asdf:load-op 'gol)
-
-(gol:get-offset-table 2 2)
