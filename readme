@@ -1,8 +1,0 @@
-Game of Life
-============
-
-About
------
-
-*very* simple game-of-life simulator with lisp backend and html5 frontend, not finished yet (obviously).
-
