@@ -1,5 +1,13 @@
 ;basic functions for game-of-life
 ;written on the knee, need some work
+
+(defpackage #:gol
+  (:nicknames #:gol)
+  (:use #:cl #:cl-json #:hunchentoot)
+  (:export #:start-server #:create-world #:generate #:apply-generation
+           #:world-to-json #:randomize-world)
+  (:documentation "docs"))
+
 (in-package :gol)
 
 (defun create-world (x y)
@@ -65,4 +73,19 @@
                   ((= (get-cell world x y) 2) (set-cell world x y 1))
                   ((= (get-cell world x y) 3) (set-cell world x y 0)))))
   world))
+
+(defun convert-world (world)
+  (loop for x from 0 below (array-dimension world 0)
+        collect
+        (loop for y from 0 below (array-dimension world 1) collect
+              (get-cell world x y))))
+
+(defun randomize-world(world)
+  (loop for x from 0 below (array-dimension world 0) do
+        (loop for y from 0 below (array-dimension world 1) do
+              (if (= (random 2) 0) (set-cell world x y 1) (set-cell world x y 0))))
+  world)
+
+(defun world-to-json (world)
+  (json:encode-json (convert world)))
 
